@@ -20,8 +20,6 @@ struct IQueryTracker
     virtual void Start() = 0;
 
     virtual void Reconfigure(const TQueryTrackerDynamicConfigPtr& config) = 0;
-
-    virtual void PopulateAlerts(std::vector<NAlertManager::TAlert>* alerts) const = 0;
 };
 
 DEFINE_REFCOUNTED_TYPE(IQueryTracker)
@@ -30,6 +28,7 @@ IQueryTrackerPtr CreateQueryTracker(
     TQueryTrackerDynamicConfigPtr config,
     TString selfAddress,
     IInvokerPtr controlInvoker,
+    NAlertManager::IAlertCollectorPtr alertCollector,
     NApi::IClientPtr stateClient,
     NYPath::TYPath stateRoot,
     int minRequiredStateVersion);
