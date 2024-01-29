@@ -9437,6 +9437,10 @@ void TOperationControllerBase::InitUserJobSpecTemplate(
         jobSpec->set_container_cpu_limit(Options->CpuLimitOvercommitMultiplier * jobSpecConfig->CpuLimit + Options->InitialCpuLimitOvercommit);
     }
 
+    if (Options->SetContainerMemoryLimit) {
+        jobSpec->set_container_memory_limit(jobSpecConfig->MemoryLimit + Options->ContainerMemoryOverhead);
+    }
+
     // This is common policy for all operations of given type.
     i64 threadLimit = ceil(userJobOptions->InitialThreadLimit + userJobOptions->ThreadLimitMultiplier * jobSpecConfig->CpuLimit);
     jobSpec->set_thread_limit(threadLimit);
@@ -9585,6 +9589,11 @@ void TOperationControllerBase::InitUserJobSpec(
     ToProto(jobSpec->mutable_debug_output_transaction_id(), DebugTransaction->GetId());
 
     jobSpec->set_memory_reserve(joblet->UserJobMemoryReserve);
+
+    jobSpec->set_job_proxy_memory_limit(
+        joblet->EstimatedResourceUsage.GetFootprintMemory() +
+        joblet->EstimatedResourceUsage.GetJobProxyMemory());
+
     jobSpec->set_job_proxy_memory_reserve(
         joblet->EstimatedResourceUsage.GetFootprintMemory() +
         joblet->EstimatedResourceUsage.GetJobProxyMemory() * joblet->JobProxyMemoryReserveFactor.value());

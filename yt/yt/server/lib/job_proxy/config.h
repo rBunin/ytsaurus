@@ -244,6 +244,10 @@ public:
 
     std::optional<double> ContainerCpuLimit;
 
+    i64 ContainerMemoryLimit = 0;
+
+    i64 JobProxyMemoryLimit = 0;
+
     std::optional<int> StatisticsOutputTableCountLimit;
 
     NDns::TDnsOverRpcResolverConfigPtr DnsOverRpcResolver;
