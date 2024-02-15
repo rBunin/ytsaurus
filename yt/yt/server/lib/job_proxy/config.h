@@ -228,6 +228,9 @@ public:
     //! For testing purposes only.
     bool DoNotSetUserId;
 
+    //! Forward variables from job proxy environment to user job.
+    bool ForwardAllEnvironmentVariables;
+
     //! This option can disable memory limit check for user jobs.
     //! Used in arcadia tests, since it's almost impossible to set
     //! proper memory limits for asan builds.

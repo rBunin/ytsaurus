@@ -652,6 +652,9 @@ void TExecNodeConfig::Register(TRegistrar registrar)
     registrar.Parameter("do_not_set_user_id", &TThis::DoNotSetUserId)
         .Default(false);
 
+    registrar.Parameter("forward_all_environment_variables", &TThis::ForwardAllEnvironmentVariables)
+        .Default(false);
+
     registrar.Parameter("memory_tracker_cache_period", &TThis::MemoryTrackerCachePeriod)
         .Default(TDuration::MilliSeconds(100));
     registrar.Parameter("smaps_memory_tracker_cache_period", &TThis::SMapsMemoryTrackerCachePeriod)

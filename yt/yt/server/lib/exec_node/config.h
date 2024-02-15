@@ -562,6 +562,9 @@ public:
     //! For testing purposes only.
     bool DoNotSetUserId;
 
+    // Forward variables from job proxy environment to user job.
+    bool ForwardAllEnvironmentVariables;
+
     NConcurrency::TThroughputThrottlerConfigPtr UserJobContainerCreationThrottler;
 
     TDuration MemoryTrackerCachePeriod;
